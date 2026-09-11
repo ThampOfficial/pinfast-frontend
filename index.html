@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PINFAST - ศูนย์รวม e-PIN และบัตรเติมเกม</title>
+  <title>PINFAST - ศูนย์รวม e-PIN บัตรเติมเกม และบริการเติมตรงเข้า ID</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -17,48 +17,31 @@
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
       <div class="flex items-center gap-2">
         <span class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">PINFAST</span>
-        <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded">Instant e-PIN</span>
+        <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded">Instant Store</span>
       </div>
-      <div class="text-sm text-slate-400">ระบบส่งมอบอัตโนมัติ 24 ชม.</div>
+      <div class="text-sm text-slate-400">ระบบส่งมอบและเติมเงินอัตโนมัติ 24 ชม.</div>
     </div>
   </header>
 
   <!-- Main Content -->
   <main class="max-w-6xl mx-auto px-4 py-8">
     <div class="text-center mb-8">
-      <h1 class="text-3xl font-bold mb-2">เลือกซื้อ e-PIN / บัตรเติมเกม</h1>
-      <p class="text-slate-400">ชำระเงินผ่าน PromptPay รับรหัสทันทีไม่ต้องรอแอดมิน</p>
+      <h1 class="text-3xl font-bold mb-2">ศูนย์รวมเติมเกมและ e-PIN ครบวงจร</h1>
+      <p class="text-slate-400">ชำระเงินผ่าน PromptPay รวดเร็ว ปลอดภัย ได้รับของทันที</p>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      <button onclick="filterCategory('ALL')" class="cat-btn bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm transition">ทั้งหมด (All)</button>
+      <button onclick="filterCategory('MOBILE')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-4 py-2 rounded-xl text-sm border border-slate-700 transition">📱 เกมมือถือ (Direct)</button>
+      <button onclick="filterCategory('EPIN')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-4 py-2 rounded-xl text-sm border border-slate-700 transition">💳 บัตรเติมเงิน (e-PIN)</button>
+      <button onclick="filterCategory('CONSOLE')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-4 py-2 rounded-xl text-sm border border-slate-700 transition">🎮 PC / Console Cards</button>
+      <button onclick="filterCategory('APP')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-4 py-2 rounded-xl text-sm border border-slate-700 transition">📺 แอปบันเทิง / Live</button>
     </div>
 
     <!-- Product Grid -->
-    <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
-        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-amber-400">Razer Gold</div>
-        <h3 class="font-semibold text-lg">Razer Gold PIN 100.-</h3>
-        <p class="text-2xl font-bold text-amber-400 mt-2">฿95</p>
-        <button onclick="openModal(1, 'Razer Gold PIN 100.-', 95)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
-      </div>
-
-      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
-        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-red-400">Garena</div>
-        <h3 class="font-semibold text-lg">Garena Shells 150.-</h3>
-        <p class="text-2xl font-bold text-amber-400 mt-2">฿142</p>
-        <button onclick="openModal(2, 'Garena Shells 150.-', 142)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
-      </div>
-
-      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
-        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-blue-400">Steam Wallet</div>
-        <h3 class="font-semibold text-lg">Steam Wallet 350 THB</h3>
-        <p class="text-2xl font-bold text-amber-400 mt-2">฿335</p>
-        <button onclick="openModal(3, 'Steam Wallet 350 THB', 335)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
-      </div>
-
-      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
-        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-purple-400">ROBLOX</div>
-        <h3 class="font-semibold text-lg">ROBLOX Gift Card 10$</h3>
-        <p class="text-2xl font-bold text-amber-400 mt-2">฿340</p>
-        <button onclick="openModal(4, 'ROBLOX Gift Card 10$', 340)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
-      </div>
+    <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 sm:gap-6">
+      <!-- สินค้าและรูปภาพจะถูก Render ด้วย JavaScript -->
     </div>
 
     <!-- Payment View -->
@@ -89,16 +72,22 @@
     <div id="success-view" class="hidden max-w-md mx-auto bg-slate-800 border border-emerald-500/30 rounded-2xl p-6 text-center">
       <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">✓</div>
       <h2 class="text-xl font-bold text-emerald-400 mb-1">ชำระเงินสำเร็จ!</h2>
-      <p class="text-xs text-slate-400 mb-6">รับรหัส e-PIN ของคุณได้ทันทีด้านล่างนี้</p>
+      <p class="text-xs text-slate-400 mb-6" id="success-desc">รับรายการของคุณได้ทันทีด้านล่างนี้</p>
 
       <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 text-left font-mono">
-        <div class="mb-2">
-          <span class="text-xs text-slate-500 block">SERIAL NUMBER</span>
-          <span id="res-serial" class="text-amber-400 font-bold text-lg select-all"></span>
+        <div id="res-code-box">
+          <div class="mb-2">
+            <span class="text-xs text-slate-500 block">SERIAL NUMBER</span>
+            <span id="res-serial" class="text-amber-400 font-bold text-lg select-all"></span>
+          </div>
+          <div>
+            <span class="text-xs text-slate-500 block">PIN CODE</span>
+            <span id="res-pin" class="text-emerald-400 font-bold text-xl select-all"></span>
+          </div>
         </div>
-        <div>
-          <span class="text-xs text-slate-500 block">PIN CODE</span>
-          <span id="res-pin" class="text-emerald-400 font-bold text-xl select-all"></span>
+        <div id="res-direct-box" class="hidden text-center py-2">
+          <span class="text-emerald-400 font-bold text-lg block">ระบบได้ทำการเติมตรงเข้า ID เรียบร้อยแล้ว!</span>
+          <span class="text-xs text-slate-400 block mt-1">กรุณาเข้าตรวจสอบไอเทมในตัวเกม</span>
         </div>
       </div>
 
@@ -106,14 +95,19 @@
     </div>
   </main>
 
-  <!-- Modal -->
+  <!-- Modal สั่งซื้อ -->
   <div id="modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur flex items-center justify-center p-4 z-50">
     <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6">
       <h3 class="text-lg font-bold mb-1" id="modal-title">ยืนยันรายการ</h3>
       <p class="text-sm text-amber-400 font-bold mb-4" id="modal-price"></p>
       
       <form onsubmit="confirmOrder(event)">
-        <label class="block text-xs text-slate-400 mb-2">เบอร์โทรศัพท์ / อีเมล (สำหรับรับประวัติ)</label>
+        <div id="uid-input-container" class="hidden mb-3">
+          <label class="block text-xs text-slate-400 mb-1">User ID / Character ID (ในเกม)</label>
+          <input id="uid-input" type="text" placeholder="เช่น 123456789 (Zone 1234)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-mono text-amber-400 focus:outline-none focus:border-amber-500" />
+        </div>
+
+        <label class="block text-xs text-slate-400 mb-1">เบอร์โทรศัพท์ / อีเมล (สำหรับรับประวัติ)</label>
         <input id="contact-input" type="text" required placeholder="0812345678" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:border-amber-500" />
         
         <div class="flex gap-2">
@@ -129,10 +123,76 @@
     let selectedProduct = null;
     let currentOrderRef = null;
 
-    function openModal(id, name, price) {
-      selectedProduct = { id, name, price };
-      document.getElementById('modal-title').innerText = name;
-      document.getElementById('modal-price').innerText = `฿${price}`;
+    // 📦 คลังสินค้าพร้อม URL รูปภาพประจำแต่ละเกม / บัตร
+    const PRODUCTS = [
+      // บัตรเติมเงิน (e-PIN)
+      { id: 1, name: 'Razer Gold PIN 100.-', price: 95, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927237.jpg' },
+      { id: 2, name: 'Garena Shells 150.-', price: 142, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927254.jpg' },
+      { id: 3, name: 'Steam Wallet 350 THB', price: 335, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927357.jpg' },
+      { id: 4, name: 'ROBLOX Gift Card 10$', price: 340, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/202011/1605688523.png' },
+      
+      // Direct Top-up เกมมือถือ
+      { id: 5, name: 'Genshin Impact (60 Crystals)', price: 35, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/202009/1601284589.jpg' },
+      { id: 6, name: 'PUBG Mobile (60 UC)', price: 33, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927160.jpg' },
+      { id: 7, name: 'Free Fire (140 Diamonds)', price: 48, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201901/1547781702.jpg' },
+      { id: 8, name: 'Mobile Legends (86 Diamonds)', price: 49, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927116.jpg' },
+      { id: 9, name: 'Honkai: Star Rail (60 Oneiric)', price: 35, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/202304/1682496229.png' },
+
+      // PC / Console / App
+      { id: 10, name: 'Nintendo eShop Card $10', price: 345, cat: 'CONSOLE', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927429.jpg' },
+      { id: 11, name: 'PlayStation Store $10', price: 345, cat: 'CONSOLE', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927405.jpg' },
+      { id: 12, name: 'Bigo Live (100 Diamonds)', price: 70, cat: 'APP', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201906/1560938622.png' }
+    ];
+
+    function renderProducts(items) {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = items.map(p => `
+        <div class="bg-slate-800 border border-slate-700/80 rounded-2xl overflow-hidden hover:border-amber-500/50 transition duration-300 group flex flex-col justify-between">
+          <div>
+            <!-- รูปภาพปกเกม -->
+            <div class="relative h-36 sm:h-40 overflow-hidden bg-slate-950">
+              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100" />
+              <span class="absolute top-2 left-2 text-[10px] sm:text-xs ${p.type === 'DIRECT' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-amber-500 text-slate-950 font-bold'} px-2 py-0.5 rounded-md shadow-md">
+                ${p.badge}
+              </span>
+            </div>
+            
+            <div class="p-4">
+              <h3 class="font-semibold text-sm sm:text-base line-clamp-1 group-hover:text-amber-400 transition">${p.name}</h3>
+              <p class="text-xl sm:text-2xl font-bold text-amber-400 mt-1">฿${p.price}</p>
+            </div>
+          </div>
+
+          <div class="px-4 pb-4">
+            <button onclick="openModal(${p.id})" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2 rounded-xl transition text-sm">
+              ${p.type === 'DIRECT' ? 'เติมเลย' : 'ซื้อรหัส'}
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCategory(cat) {
+      const filtered = cat === 'ALL' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+      renderProducts(filtered);
+    }
+
+    function openModal(id) {
+      selectedProduct = PRODUCTS.find(p => p.id === id);
+      document.getElementById('modal-title').innerText = selectedProduct.name;
+      document.getElementById('modal-price').innerText = `฿${selectedProduct.price}`;
+      
+      const uidContainer = document.getElementById('uid-input-container');
+      const uidInput = document.getElementById('uid-input');
+      
+      if (selectedProduct.type === 'DIRECT') {
+        uidContainer.classList.remove('hidden');
+        uidInput.required = true;
+      } else {
+        uidContainer.classList.add('hidden');
+        uidInput.required = false;
+      }
+
       document.getElementById('modal').classList.remove('hidden');
     }
 
@@ -143,7 +203,9 @@
     async function confirmOrder(e) {
       e.preventDefault();
       const contact = document.getElementById('contact-input').value;
+      const userId = document.getElementById('uid-input').value;
       const submitBtn = document.getElementById('btn-submit');
+      
       submitBtn.innerText = 'กำลังสร้างรายการ...';
       submitBtn.disabled = true;
 
@@ -151,7 +213,11 @@
         const response = await fetch(`${API_BASE_URL}/api/orders/create`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ productId: selectedProduct.id, customerContact: contact })
+          body: JSON.stringify({ 
+            productId: selectedProduct.id, 
+            customerContact: contact,
+            userId: userId || null
+          })
         });
         const data = await response.json();
 
@@ -168,7 +234,7 @@
           alert(data.message || 'ไม่สามารถสร้างออเดอร์ได้');
         }
       } catch (err) {
-        alert('เชื่อมต่อ Backend ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+        alert('เชื่อมต่อ Backend ไม่สำเร็จ');
       } finally {
         submitBtn.innerText = 'ยืนยันสั่งซื้อ';
         submitBtn.disabled = false;
@@ -177,19 +243,16 @@
 
     async function verifyPayment() {
       const verifyBtn = document.getElementById('btn-verify');
-      const fileInput = document.getElementById('slip-file');
-
       verifyBtn.innerText = 'กำลังตรวจสอบสลิป...';
       verifyBtn.disabled = true;
 
       try {
-        // ส่ง Request ไปตรวจสลิปที่ Backend
         const response = await fetch(`${API_BASE_URL}/api/payment/verify-slip`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             orderRef: currentOrderRef,
-            slipPayload: 'DUMMY_SLIP_DATA' // ส่งข้อมูลสลิป
+            slipPayload: 'DUMMY_SLIP_DATA'
           })
         });
         const data = await response.json();
@@ -197,10 +260,19 @@
         if (data.success) {
           document.getElementById('payment-view').classList.add('hidden');
           document.getElementById('success-view').classList.remove('hidden');
-          document.getElementById('res-serial').innerText = data.item.serial;
-          document.getElementById('res-pin').innerText = data.item.pin;
+          
+          if (selectedProduct.type === 'DIRECT') {
+            document.getElementById('res-code-box').classList.add('hidden');
+            document.getElementById('res-direct-box').classList.remove('hidden');
+            document.getElementById('success-desc').innerText = 'ระบบทำรายการเติมเงินตรงเข้า ID เกมของคุณเรียบร้อยแล้ว';
+          } else {
+            document.getElementById('res-code-box').classList.remove('hidden');
+            document.getElementById('res-direct-box').classList.add('hidden');
+            document.getElementById('res-serial').innerText = data.item ? data.item.serial : 'N/A';
+            document.getElementById('res-pin').innerText = data.item ? data.item.pin : 'N/A';
+          }
         } else {
-          alert(data.message || 'ตรวจสอบไม่สำเร็จ กรุณาเช็กสลิปอีกครั้ง');
+          alert(data.message || 'ตรวจสอบไม่สำเร็จ');
         }
       } catch (err) {
         alert('เกิดข้อผิดพลาดในการตรวจสลิป');
@@ -219,11 +291,14 @@
         display.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         if (--duration < 0) {
           clearInterval(timer);
-          alert('หมดเวลาชำระเงิน กรุณาทำรายการใหม่');
+          alert('หมดเวลาชำระเงิน');
           location.reload();
         }
       }, 1000);
     }
+
+    // Initialize Render
+    renderProducts(PRODUCTS);
   </script>
 </body>
 </html>
