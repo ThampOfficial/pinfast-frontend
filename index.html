@@ -1,125 +1,138 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PINFAST - บัตรดิจิทัล ออโต้ 24 ชม.</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PINFAST - ศูนย์รวม e-PIN และบัตรเติมเกม</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Kanit', sans-serif; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+<body class="bg-slate-900 text-white min-h-screen">
 
-  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
       <div class="flex items-center gap-2">
-        <div class="bg-emerald-500 p-2 rounded-lg text-slate-950 font-black">⚡</div>
-        <span class="text-2xl font-black tracking-wider text-emerald-400">PINFAST</span>
+        <span class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">PINFAST</span>
+        <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded">Instant e-PIN</span>
       </div>
-      <span class="text-xs text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-3 py-1 rounded-full">
-        ● ระบบส่งโค้ดออโต้ 24 ชม.
-      </span>
+      <div class="text-sm text-slate-400">ระบบส่งมอบอัตโนมัติ 24 ชม.</div>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main class="max-w-6xl mx-auto px-4 py-8">
-    
-    <div class="text-center py-8 mb-8 bg-gradient-to-b from-slate-900 to-transparent rounded-2xl border border-slate-800/50">
-      <h1 class="text-3xl md:text-5xl font-black mb-3">
-        กดปุ๊บ ได้พินปั๊บ <span class="text-emerald-400">ออโต้ 24 ชั่วโมง</span>
-      </h1>
-      <p class="text-slate-400 text-sm md:text-base">ศูนย์รวมบัตรดิจิทัล e-PIN เติมเกม ราคาถูกกว่าหน้าบัตร</p>
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold mb-2">เลือกซื้อ e-PIN / บัตรเติมเกม</h1>
+      <p class="text-slate-400">ชำระเงินผ่าน PromptPay รับรหัสทันทีไม่ต้องรอแอดมิน</p>
     </div>
 
-    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+    <!-- Product Grid -->
+    <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
+        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-amber-400">Razer Gold</div>
+        <h3 class="font-semibold text-lg">Razer Gold PIN 100.-</h3>
+        <p class="text-2xl font-bold text-amber-400 mt-2">฿95</p>
+        <button onclick="openModal(1, 'Razer Gold PIN 100.-', 95)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
+      </div>
 
-    <div id="payment-view" class="hidden max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
-      <div id="timer" class="text-amber-400 mb-4 bg-amber-950/40 border border-amber-900/50 p-2 rounded-lg text-sm">
-        ชำระเงินภายใน: 05:00 นาที
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
+        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-red-400">Garena</div>
+        <h3 class="font-semibold text-lg">Garena Shells 150.-</h3>
+        <p class="text-2xl font-bold text-amber-400 mt-2">฿142</p>
+        <button onclick="openModal(2, 'Garena Shells 150.-', 142)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
       </div>
-      <h2 class="text-lg font-bold mb-2">สแกนจ่ายผ่าน PromptPay</h2>
-      <p class="text-xs text-slate-400 mb-2">Order Ref: <span id="pay-ref" class="text-slate-200 font-mono"></span></p>
-      <p class="text-xs text-slate-400 mb-4">ยอดชำระ: <span id="pay-amount" class="text-emerald-400 font-bold text-base">฿0</span></p>
-      <div class="bg-white p-4 rounded-xl inline-block mb-4">
-        <img id="qr-code" src="" class="w-44 h-44" alt="PromptPay QR">
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
+        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-blue-400">Steam Wallet</div>
+        <h3 class="font-semibold text-lg">Steam Wallet 350 THB</h3>
+        <p class="text-2xl font-bold text-amber-400 mt-2">฿335</p>
+        <button onclick="openModal(3, 'Steam Wallet 350 THB', 335)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
       </div>
-      <button onclick="simulatePaymentSuccess()" class="w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 font-bold py-2 rounded-lg text-xs transition">
-        [ทดสอบระบบ] จำลองชำระเงินสำเร็จ (ส่ง Webhook)
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition">
+        <div class="h-32 bg-slate-700/50 rounded-xl mb-4 flex items-center justify-center font-bold text-purple-400">ROBLOX</div>
+        <h3 class="font-semibold text-lg">ROBLOX Gift Card 10$</h3>
+        <p class="text-2xl font-bold text-amber-400 mt-2">฿340</p>
+        <button onclick="openModal(4, 'ROBLOX Gift Card 10$', 340)" class="w-full mt-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ซื้อเลย</button>
+      </div>
+    </div>
+
+    <!-- Payment View -->
+    <div id="payment-view" class="hidden max-w-md mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 text-center">
+      <div class="inline-block bg-amber-500/10 text-amber-400 text-xs px-3 py-1 rounded-full mb-3">รอชำระเงิน</div>
+      <h2 class="text-xl font-bold mb-1">สแกน QR Code เพื่อชำระเงิน</h2>
+      <p class="text-sm text-slate-400 mb-4">Order Ref: <span id="pay-ref" class="text-amber-400 font-mono"></span></p>
+
+      <div class="bg-white p-4 rounded-2xl inline-block mb-4">
+        <img id="qr-code" src="" alt="PromptPay QR Code" class="w-60 h-60 mx-auto" />
+      </div>
+
+      <div class="text-3xl font-bold text-amber-400 mb-2" id="pay-amount">฿0</div>
+      <p class="text-xs text-slate-400 mb-6">กรุณาชำระเงินภายใน <span id="timer" class="text-red-400 font-bold">15:00</span> นาที</p>
+
+      <!-- Slip Upload Area -->
+      <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 text-left">
+        <label class="block text-xs text-slate-400 mb-2">แนบสลิปโอนเงินเพื่อตรวจสอบ:</label>
+        <input type="file" id="slip-file" accept="image/*" class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-600 cursor-pointer" />
+      </div>
+
+      <button onclick="verifyPayment()" id="btn-verify" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl transition mb-2 flex items-center justify-center gap-2">
+        <span>ตรวจสอบการโอนเงิน (Verify Slip)</span>
       </button>
     </div>
 
-    <div id="success-view" class="hidden max-w-md mx-auto bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 text-center shadow-lg shadow-emerald-500/10">
-      <div class="text-emerald-400 text-4xl mb-2">✓</div>
-      <h2 class="text-xl font-bold mb-1 text-emerald-400">ชำระเงินสำเร็จ!</h2>
-      <p class="text-xs text-slate-400 mb-6">ระบบจัดส่ง e-PIN ให้คุณเรียบร้อยแล้ว</p>
-      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-left space-y-3 mb-6">
+    <!-- Success Delivery View -->
+    <div id="success-view" class="hidden max-w-md mx-auto bg-slate-800 border border-emerald-500/30 rounded-2xl p-6 text-center">
+      <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">✓</div>
+      <h2 class="text-xl font-bold text-emerald-400 mb-1">ชำระเงินสำเร็จ!</h2>
+      <p class="text-xs text-slate-400 mb-6">รับรหัส e-PIN ของคุณได้ทันทีด้านล่างนี้</p>
+
+      <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 text-left font-mono">
+        <div class="mb-2">
+          <span class="text-xs text-slate-500 block">SERIAL NUMBER</span>
+          <span id="res-serial" class="text-amber-400 font-bold text-lg select-all"></span>
+        </div>
         <div>
-          <span class="text-xs text-slate-500 block">Serial Number:</span>
-          <span id="res-serial" class="font-mono font-bold text-slate-200"></span>
-        </div>
-        <div class="border-t border-slate-800 pt-2">
-          <span class="text-xs text-slate-500 block">PIN Code:</span>
-          <span id="res-pin" class="font-mono font-black text-emerald-400 text-lg"></span>
+          <span class="text-xs text-slate-500 block">PIN CODE</span>
+          <span id="res-pin" class="text-emerald-400 font-bold text-xl select-all"></span>
         </div>
       </div>
-      <button onclick="resetApp()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition">
-        กลับหน้าแรก
-      </button>
-    </div>
 
+      <button onclick="location.reload()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2.5 rounded-xl transition">กลับสู่หน้าหลัก</button>
+    </div>
   </main>
 
-  <div id="modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full">
-      <h2 id="modal-title" class="text-xl font-bold mb-4">สั่งซื้อ</h2>
-      <form onsubmit="confirmOrder(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs text-slate-400 mb-1">เบอร์โทรศัพท์ / อีเมล (สำหรับรับรหัส)</label>
-          <input type="text" id="contact-input" required placeholder="0812345678 หรือ email@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm focus:border-emerald-500 focus:outline-none text-white">
-        </div>
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6">
+      <h3 class="text-lg font-bold mb-1" id="modal-title">ยืนยันรายการ</h3>
+      <p class="text-sm text-amber-400 font-bold mb-4" id="modal-price"></p>
+      
+      <form onsubmit="confirmOrder(event)">
+        <label class="block text-xs text-slate-400 mb-2">เบอร์โทรศัพท์ / อีเมล (สำหรับรับประวัติ)</label>
+        <input id="contact-input" type="text" required placeholder="0812345678" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm mb-4 focus:outline-none focus:border-amber-500" />
+        
         <div class="flex gap-2">
-          <button type="button" onclick="closeModal()" class="w-1/2 bg-slate-800 hover:bg-slate-700 py-2.5 rounded-lg text-sm font-semibold">ยกเลิก</button>
-          <button type="submit" id="btn-submit" class="w-1/2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-lg text-sm">ยืนยันสั่งซื้อ</button>
+          <button type="button" onclick="closeModal()" class="w-1/2 bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold py-2.5 rounded-xl transition">ยกเลิก</button>
+          <button type="submit" id="btn-submit" class="w-1/2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">ยืนยันสั่งซื้อ</button>
         </div>
       </form>
     </div>
   </div>
 
   <script>
-    // เชื่อมต่อ API Backend บน Render
     const API_BASE_URL = 'https://pinfast-backend.onrender.com';
-
-    const PRODUCTS = [
-      { id: 1, name: 'Razer Gold PIN', price: 95, originalPrice: 100, type: '50 - 500 THB', img: '💳' },
-      { id: 2, name: 'Garena Shells', price: 142, originalPrice: 150, type: 'e-PIN Auto', img: '🎮' },
-      { id: 3, name: 'Steam Wallet Code', price: 335, originalPrice: 350, type: 'THB Currency', img: '🎯' },
-      { id: 4, name: 'ROBLOX Gift Card', price: 340, originalPrice: 360, type: '800 Robux', img: '🧱' }
-    ];
-
     let selectedProduct = null;
     let currentOrderRef = null;
-    let timerInterval = null;
-    let timeLeft = 300;
 
-    function renderProducts() {
-      const grid = document.getElementById('product-grid');
-      grid.innerHTML = PRODUCTS.map(p => `
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 hover:border-emerald-500/50 transition">
-          <div class="text-4xl mb-3">${p.img}</div>
-          <h3 class="font-bold text-lg mb-1">${p.name}</h3>
-          <p class="text-xs text-slate-500 mb-3">${p.type}</p>
-          <div class="flex items-baseline gap-2 mb-4">
-            <span class="text-xl font-bold text-emerald-400">฿${p.price}</span>
-            <span class="text-xs text-slate-500 line-through">฿${p.originalPrice}</span>
-          </div>
-          <button onclick="openModal(${p.id})" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 px-4 rounded-lg text-sm transition">
-            เลือกซื้อ
-          </button>
-        </div>
-      `).join('');
-    }
-
-    function openModal(id) {
-      selectedProduct = PRODUCTS.find(p => p.id === id);
-      document.getElementById('modal-title').innerText = `สั่งซื้อ ${selectedProduct.name}`;
+    function openModal(id, name, price) {
+      selectedProduct = { id, name, price };
+      document.getElementById('modal-title').innerText = name;
+      document.getElementById('modal-price').innerText = `฿${price}`;
       document.getElementById('modal').classList.remove('hidden');
     }
 
@@ -127,90 +140,90 @@
       document.getElementById('modal').classList.add('hidden');
     }
 
- async function confirmOrder(e) {
-  e.preventDefault();
-  const contact = document.getElementById('contact-input').value;
-  const submitBtn = document.getElementById('btn-submit');
-  submitBtn.innerText = 'กำลังสร้างรายการ...';
-  submitBtn.disabled = true;
+    async function confirmOrder(e) {
+      e.preventDefault();
+      const contact = document.getElementById('contact-input').value;
+      const submitBtn = document.getElementById('btn-submit');
+      submitBtn.innerText = 'กำลังสร้างรายการ...';
+      submitBtn.disabled = true;
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/orders/create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ productId: selectedProduct.id, customerContact: contact })
-    });
-    const data = await response.json();
-
-    if (data.success) {
-      currentOrderRef = data.orderRef;
-      closeModal();
-      document.getElementById('product-grid').classList.add('hidden');
-      document.getElementById('payment-view').classList.remove('hidden');
-      document.getElementById('pay-ref').innerText = currentOrderRef;
-      document.getElementById('pay-amount').innerText = `฿${data.amount}`;
-      
-      // แสดง PromptPay QR Code จริงที่เจนจาก Backend
-      document.getElementById('qr-code').src = data.qrImage;
-      
-      startTimer();
-    } else {
-      alert(data.message || 'ไม่สามารถสร้างออเดอร์ได้');
-    }
-  } catch (err) {
-    alert('เชื่อมต่อ Backend ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
-  } finally {
-    submitBtn.innerText = 'ยืนยันสั่งซื้อ';
-    submitBtn.disabled = false;
-  }
-}
-
-    function startTimer() {
-      timeLeft = 300;
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-        const s = (timeLeft % 60).toString().padStart(2, '0');
-        document.getElementById('timer').innerText = `ชำระเงินภายใน: ${m}:${s} นาที`;
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          alert('หมดเวลาการชำระเงิน');
-          resetApp();
-        }
-      }, 1000);
-    }
-
-    async function simulatePaymentSuccess() {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/payment/webhook`, {
+        const response = await fetch(`${API_BASE_URL}/api/orders/create`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderRef: currentOrderRef, status: 'SUCCESS' })
+          body: JSON.stringify({ productId: selectedProduct.id, customerContact: contact })
         });
-        const data = await res.json();
+        const data = await response.json();
 
         if (data.success) {
-          clearInterval(timerInterval);
-          document.getElementById('payment-view').classList.add('hidden');
-          document.getElementById('success-view').classList.remove('hidden');
-          document.getElementById('res-serial').innerText = 'RZ-2026-0001X';
-          document.getElementById('res-pin').innerText = '8841-9920-1123';
+          currentOrderRef = data.orderRef;
+          closeModal();
+          document.getElementById('product-grid').classList.add('hidden');
+          document.getElementById('payment-view').classList.remove('hidden');
+          document.getElementById('pay-ref').innerText = currentOrderRef;
+          document.getElementById('pay-amount').innerText = `฿${data.amount}`;
+          document.getElementById('qr-code').src = data.qrImage;
+          startTimer();
+        } else {
+          alert(data.message || 'ไม่สามารถสร้างออเดอร์ได้');
         }
       } catch (err) {
-        alert('เกิดข้อผิดพลาดในการส่งข้อมูล Webhook');
+        alert('เชื่อมต่อ Backend ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+      } finally {
+        submitBtn.innerText = 'ยืนยันสั่งซื้อ';
+        submitBtn.disabled = false;
       }
     }
 
-    function resetApp() {
-      clearInterval(timerInterval);
-      document.getElementById('success-view').classList.add('hidden');
-      document.getElementById('payment-view').classList.add('hidden');
-      document.getElementById('product-grid').classList.remove('hidden');
-      document.getElementById('contact-input').value = '';
+    async function verifyPayment() {
+      const verifyBtn = document.getElementById('btn-verify');
+      const fileInput = document.getElementById('slip-file');
+
+      verifyBtn.innerText = 'กำลังตรวจสอบสลิป...';
+      verifyBtn.disabled = true;
+
+      try {
+        // ส่ง Request ไปตรวจสลิปที่ Backend
+        const response = await fetch(`${API_BASE_URL}/api/payment/verify-slip`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderRef: currentOrderRef,
+            slipPayload: 'DUMMY_SLIP_DATA' // ส่งข้อมูลสลิป
+          })
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById('payment-view').classList.add('hidden');
+          document.getElementById('success-view').classList.remove('hidden');
+          document.getElementById('res-serial').innerText = data.item.serial;
+          document.getElementById('res-pin').innerText = data.item.pin;
+        } else {
+          alert(data.message || 'ตรวจสอบไม่สำเร็จ กรุณาเช็กสลิปอีกครั้ง');
+        }
+      } catch (err) {
+        alert('เกิดข้อผิดพลาดในการตรวจสลิป');
+      } finally {
+        verifyBtn.innerText = 'ตรวจสอบการโอนเงิน (Verify Slip)';
+        verifyBtn.disabled = false;
+      }
     }
 
-    renderProducts();
+    function startTimer() {
+      let duration = 15 * 60;
+      const display = document.getElementById('timer');
+      const timer = setInterval(() => {
+        const minutes = Math.floor(duration / 60);
+        const seconds = duration % 60;
+        display.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (--duration < 0) {
+          clearInterval(timer);
+          alert('หมดเวลาชำระเงิน กรุณาทำรายการใหม่');
+          location.reload();
+        }
+      }, 1000);
+    }
   </script>
 </body>
 </html>
