@@ -127,40 +127,43 @@
       document.getElementById('modal').classList.add('hidden');
     }
 
-    async function confirmOrder(e) {
-      e.preventDefault();
-      const contact = document.getElementById('contact-input').value;
-      const submitBtn = document.getElementById('btn-submit');
-      submitBtn.innerText = 'กำลังสร้างรายการ...';
-      submitBtn.disabled = true;
+ async function confirmOrder(e) {
+  e.preventDefault();
+  const contact = document.getElementById('contact-input').value;
+  const submitBtn = document.getElementById('btn-submit');
+  submitBtn.innerText = 'กำลังสร้างรายการ...';
+  submitBtn.disabled = true;
 
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/orders/create`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ productId: selectedProduct.id, customerContact: contact })
-        });
-        const data = await response.json();
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/orders/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: selectedProduct.id, customerContact: contact })
+    });
+    const data = await response.json();
 
-        if (data.success) {
-          currentOrderRef = data.orderRef;
-          closeModal();
-          document.getElementById('product-grid').classList.add('hidden');
-          document.getElementById('payment-view').classList.remove('hidden');
-          document.getElementById('pay-ref').innerText = currentOrderRef;
-          document.getElementById('pay-amount').innerText = `฿${selectedProduct.price}`;
-          document.getElementById('qr-code').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${currentOrderRef}`;
-          startTimer();
-        } else {
-          alert(data.message || 'ไม่สามารถสร้างออเดอร์ได้');
-        }
-      } catch (err) {
-        alert('เชื่อมต่อ Backend ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
-      } finally {
-        submitBtn.innerText = 'ยืนยันสั่งซื้อ';
-        submitBtn.disabled = false;
-      }
+    if (data.success) {
+      currentOrderRef = data.orderRef;
+      closeModal();
+      document.getElementById('product-grid').classList.add('hidden');
+      document.getElementById('payment-view').classList.remove('hidden');
+      document.getElementById('pay-ref').innerText = currentOrderRef;
+      document.getElementById('pay-amount').innerText = `฿${data.amount}`;
+      
+      // แสดง PromptPay QR Code จริงที่เจนจาก Backend
+      document.getElementById('qr-code').src = data.qrImage;
+      
+      startTimer();
+    } else {
+      alert(data.message || 'ไม่สามารถสร้างออเดอร์ได้');
     }
+  } catch (err) {
+    alert('เชื่อมต่อ Backend ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+  } finally {
+    submitBtn.innerText = 'ยืนยันสั่งซื้อ';
+    submitBtn.disabled = false;
+  }
+}
 
     function startTimer() {
       timeLeft = 300;
