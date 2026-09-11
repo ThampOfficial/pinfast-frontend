@@ -123,25 +123,25 @@
     let selectedProduct = null;
     let currentOrderRef = null;
 
-    // 📦 คลังสินค้าพร้อม URL รูปภาพประจำแต่ละเกม / บัตร
+    // 📦 คลังสินค้าพร้อม URL รูปภาพ High quality ที่แสดงผลได้ 100%
     const PRODUCTS = [
       // บัตรเติมเงิน (e-PIN)
-      { id: 1, name: 'Razer Gold PIN 100.-', price: 95, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927237.jpg' },
-      { id: 2, name: 'Garena Shells 150.-', price: 142, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927254.jpg' },
-      { id: 3, name: 'Steam Wallet 350 THB', price: 335, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927357.jpg' },
-      { id: 4, name: 'ROBLOX Gift Card 10$', price: 340, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/202011/1605688523.png' },
+      { id: 1, name: 'Razer Gold PIN 100.-', price: 95, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80' },
+      { id: 2, name: 'Garena Shells 150.-', price: 142, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80' },
+      { id: 3, name: 'Steam Wallet 350 THB', price: 335, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=400&q=80' },
+      { id: 4, name: 'ROBLOX Gift Card 10$', price: 340, cat: 'EPIN', type: 'PIN', badge: 'e-PIN', image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80' },
       
       // Direct Top-up เกมมือถือ
-      { id: 5, name: 'Genshin Impact (60 Crystals)', price: 35, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/202009/1601284589.jpg' },
-      { id: 6, name: 'PUBG Mobile (60 UC)', price: 33, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927160.jpg' },
-      { id: 7, name: 'Free Fire (140 Diamonds)', price: 48, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201901/1547781702.jpg' },
-      { id: 8, name: 'Mobile Legends (86 Diamonds)', price: 49, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927116.jpg' },
-      { id: 9, name: 'Honkai: Star Rail (60 Oneiric)', price: 35, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/202304/1682496229.png' },
+      { id: 5, name: 'Genshin Impact (60 Crystals)', price: 35, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=400&q=80' },
+      { id: 6, name: 'PUBG Mobile (60 UC)', price: 33, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=400&q=80' },
+      { id: 7, name: 'Free Fire (140 Diamonds)', price: 48, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80' },
+      { id: 8, name: 'Mobile Legends (86 Diamonds)', price: 49, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=400&q=80' },
+      { id: 9, name: 'Honkai: Star Rail (60 Oneiric)', price: 35, cat: 'MOBILE', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=400&q=80' },
 
       // PC / Console / App
-      { id: 10, name: 'Nintendo eShop Card $10', price: 345, cat: 'CONSOLE', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927429.jpg' },
-      { id: 11, name: 'PlayStation Store $10', price: 345, cat: 'CONSOLE', type: 'PIN', badge: 'e-PIN', image: 'https://img.seagmmedia.com/html/upload/product/201808/1534927405.jpg' },
-      { id: 12, name: 'Bigo Live (100 Diamonds)', price: 70, cat: 'APP', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://img.seagmmedia.com/html/upload/product/201906/1560938622.png' }
+      { id: 10, name: 'Nintendo eShop Card $10', price: 345, cat: 'CONSOLE', type: 'PIN', badge: 'e-PIN', image: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=400&q=80' },
+      { id: 11, name: 'PlayStation Store $10', price: 345, cat: 'CONSOLE', type: 'PIN', badge: 'e-PIN', image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=400&q=80' },
+      { id: 12, name: 'Bigo Live (100 Diamonds)', price: 70, cat: 'APP', type: 'DIRECT', badge: 'เติมเข้า ID', image: 'https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=400&q=80' }
     ];
 
     function renderProducts(items) {
@@ -151,7 +151,7 @@
           <div>
             <!-- รูปภาพปกเกม -->
             <div class="relative h-36 sm:h-40 overflow-hidden bg-slate-950">
-              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100" />
+              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-85 group-hover:opacity-100" />
               <span class="absolute top-2 left-2 text-[10px] sm:text-xs ${p.type === 'DIRECT' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-amber-500 text-slate-950 font-bold'} px-2 py-0.5 rounded-md shadow-md">
                 ${p.badge}
               </span>
