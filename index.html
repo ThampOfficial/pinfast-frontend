@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PINFAST - บัตรดิจิทัล ออโต้ 24 ชม.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+</head>
+<body class="bg-slate-950">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { ShoppingCart, Zap, CheckCircle2, Copy, Clock } = lucideReact;
+
+    const PRODUCTS = [
+      { id: 1, name: 'Razer Gold PIN', price: 95, originalPrice: 100, type: '50 - 500 THB', img: '💳' },
+      { id: 2, name: 'Garena Shells', price: 142, originalPrice: 150, type: 'e-PIN Auto', img: '🎮' },
+      { id: 3, name: 'Steam Wallet Code', price: 335, originalPrice: 350, type: 'THB Currency', img: '🎯' },
+      { id: 4, name: 'ROBLOX Gift Card', price: 340, originalPrice: 360, type: '800 Robux', img: '🧱' },
+    ];
+
+    function App() {
+      const [selectedProduct, setSelectedProduct] = useState(null);
+      const [contact, setContact] = useState('');
+      const [step, setStep] = useState('SHOP');
+      const [timeLeft, setTimeLeft] = useState(300);
+      const [purchasedCode, setPurchasedCode] = useState(null);
+
+      useEffect(() => {
+        let timer;
+        if (step === 'PAYMENT' && timeLeft > 0) {
+          timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+        } else if (timeLeft === 0) {
+          alert('หมดเวลาการชำระเงิน');
+          setStep('SHOP');
+        }
+        return () => clearInterval(timer);
+      }, [step, timeLeft]);
+
+      const handleCreateOrder = (e) => {
+        e.preventDefault();
+        if (!contact) return alert('กรุณากรอกเบอร์โทรหรืออีเมล');
+        setTimeLeft(300);
+        setStep('PAYMENT');
+      };
+
+      const handleSimulatePaymentSuccess = () => {
+        setPurchasedCode({ serial: 'RZ-2026-89412X', pin: '9845-1120-7741-3652' });
+        setStep('SUCCESS');
+      };
+
+      return (
+        <div className="min-h-screen bg-slate-950 text-slate-100 font-sans">
+          <header className="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50">
+            <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="bg-emerald-500 p-2 rounded-lg text-slate-950 font-black">⚡</div>
+                <span className="text-2xl font-black tracking-wider text-emerald-400">PINFAST</span>
+              </div>
+              <span className="text-xs text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-3 py-1 rounded-full">
+                ● ระบบส่งโค้ดออโต้ 24 ชม.
+              </span>
+            </div>
+          </header>
+
+          <main className="max-w-6xl mx-auto px-4 py-8">
+            {step === 'SHOP' && (
+              <>
+                <div className="text-center py-8 mb-8 bg-gradient-to-b from-slate-900 to-transparent rounded-2xl border border-slate-800/50">
+                  <h1 className="text-3xl md:text-5xl font-black mb-3">
+                    กดปุ๊บ ได้พินปั๊บ <span className="text-emerald-400">ออโต้ 24 ชั่วโมง</span>
+                  </h1>
+                  <p className="text-slate-400 text-sm md:text-base">ศูนย์รวมบัตรดิจิทัล e-PIN เติมเกม ราคาถูกกว่าหน้าบัตร</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {PRODUCTS.map((item) => (
+                    <div key={item.id} className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+                      <div className="text-4xl mb-3">{item.img}</div>
+                      <h3 className="font-bold text-lg mb-1">{item.name}</h3>
+                      <p className="text-xs text-slate-500 mb-3">{item.type}</p>
+                      <div className="flex items-baseline gap-2 mb-4">
+                        <span className="text-xl font-bold text-emerald-400">฿{item.price}</span>
+                        <span className="text-xs text-slate-500 line-through">฿{item.originalPrice}</span>
+                      </div>
+                      <button
+                        onClick={() => setSelectedProduct(item)}
+                        className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 rounded-lg text-sm"
+                      >
+                        เลือกซื้อ
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {selectedProduct && step === 'SHOP' && (
+              <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full">
+                  <h2 className="text-xl font-bold mb-4">สั่งซื้อ {selectedProduct.name}</h2>
+                  <form onSubmit={handleCreateOrder} className="space-y-4">
+                    <div>
+                      <label className="block text-xs text-slate-400 mb-1">เบอร์โทรศัพท์ / อีเมล</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="0812345678 หรือ email@example.com"
+                        value={contact}
+                        onChange={(e) => setContact(e.target.value)}
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm"
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <button type="button" onClick={() => setSelectedProduct(null)} className="w-1/2 bg-slate-800 py-2.5 rounded-lg text-sm">ยกเลิก</button>
+                      <button type="submit" className="w-1/2 bg-emerald-500 text-slate-950 font-bold py-2.5 rounded-lg text-sm">ยืนยันสั่งซื้อ</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {step === 'PAYMENT' && (
+              <div className="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
+                <div className="text-amber-400 mb-4 bg-amber-950/40 border border-amber-900/50 p-2 rounded-lg text-sm">
+                  ชำระเงินภายใน: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')} นาที
+                </div>
+                <h2 className="text-lg font-bold mb-2">สแกนจ่ายผ่าน PromptPay</h2>
+                <p className="text-xs text-slate-400 mb-4">ยอดชำระ: <span className="text-emerald-400 font-bold text-base">฿{selectedProduct.price}</span></p>
+                <div className="bg-white p-4 rounded-xl inline-block mb-4">
+                  <img src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=PROMPTPAY_MOCK`} className="w-44 h-44" />
+                </div>
+                <button onClick={handleSimulatePaymentSuccess} className="w-full bg-slate-800 text-emerald-400 border border-emerald-500/30 font-bold py-2 rounded-lg text-xs">
+                  [ทดสอบระบบ] จำลองชำระเงินสำเร็จ
+                </button>
+              </div>
+            )}
+
+            {step === 'SUCCESS' && purchasedCode && (
+              <div className="max-w-md mx-auto bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 text-center">
+                <h2 className="text-xl font-bold mb-1 text-emerald-400">ชำระเงินสำเร็จ!</h2>
+                <p className="text-xs text-slate-400 mb-6">ระบบจัดส่ง e-PIN ให้เรียบร้อยแล้ว</p>
+                <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 text-left space-y-3 mb-6">
+                  <div>
+                    <span className="text-xs text-slate-500 block">Serial Number:</span>
+                    <span className="font-mono font-bold text-slate-200">{purchasedCode.serial}</span>
+                  </div>
+                  <div className="border-t border-slate-800 pt-2">
+                    <span className="text-xs text-slate-500 block">PIN Code:</span>
+                    <span className="font-mono font-black text-emerald-400 text-lg">{purchasedCode.pin}</span>
+                  </div>
+                </div>
+                <button onClick={() => { setStep('SHOP'); setSelectedProduct(null); setContact(''); }} className="w-full bg-emerald-500 text-slate-950 font-bold py-2.5 rounded-lg text-sm">
+                  กลับหน้าแรก
+                </button>
+              </div>
+            )}
+          </main>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
